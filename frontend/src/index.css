@@ -1,0 +1,93 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/jetbrains-mono';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Space Grotesk Variable', 'Inter Variable', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+
+  --color-ink-950: #040814;
+  --color-ink-900: #070e1f;
+  --color-ink-850: #0a142a;
+  --color-ink-800: #0e1a35;
+  --color-ink-700: #16264a;
+  --color-ink-600: #22365f;
+  --color-line: rgb(125 211 252 / 0.10);
+  --color-accent: #22d3ee;
+  --color-accent-soft: rgb(34 211 238 / 0.12);
+  --color-sev-high: #f87171;
+  --color-sev-med: #f5b84b;
+  --color-sev-low: #8b9cf7;
+
+  --animate-rise: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-slide-in: slide-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade: fade 0.3s ease both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-in {
+  from { transform: translateX(32px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+html, body, #root { min-height: 100%; }
+body {
+  margin: 0;
+  background: var(--color-ink-950);
+  color: #dbe7f7;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.bg-grid {
+  background-image:
+    radial-gradient(1200px 600px at 85% -10%, rgb(34 211 238 / 0.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgb(99 102 241 / 0.08), transparent 60%),
+    linear-gradient(rgb(125 211 252 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(125 211 252 / 0.035) 1px, transparent 1px);
+  background-size: auto, auto, 44px 44px, 44px 44px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgb(14 26 53 / 0.78), rgb(9 18 38 / 0.78));
+  border: 1px solid var(--color-line);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03), 0 20px 40px -24px rgb(0 0 0 / 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.scanline::after {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 140px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgb(34 211 238 / 0.025), transparent);
+  animation: scan 9s linear infinite;
+}
+
+/* Recharts tweaks */
+.recharts-cartesian-grid line { stroke: rgb(125 211 252 / 0.07); }
+.recharts-text { fill: #6f83a8; font-size: 11px; }
+.recharts-surface:focus, .recharts-wrapper:focus, .recharts-sector:focus { outline: none; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #1c2d52; border-radius: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
